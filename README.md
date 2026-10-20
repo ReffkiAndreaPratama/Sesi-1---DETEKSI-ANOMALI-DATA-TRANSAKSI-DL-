@@ -218,3 +218,11 @@ git push -u origin main
 
 > `dataset/*.csv` dan `models/*.pkl` di-ignore karena bisa di-generate ulang.
 > Jalankan `python generate_dataset.py` dan `python train.py` setelah clone.
+
+## Identitas Mahasiswa
+
+- Nama  : Reffki Andrea Pratama
+- NPM   : G1A023039
+- Prodi : Informatika
+- Universitas : Universitas Bengkulu
+
