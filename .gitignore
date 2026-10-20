@@ -1,0 +1,24 @@
+# Environment & Python
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Model & artefak besar (dapat dibuat ulang dengan train.py)
+models/*.pkl
+models/*.joblib
+
+# Dataset (dapat dibuat ulang dengan generate_dataset.py)
+dataset/*.csv
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
