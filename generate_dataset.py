@@ -39,7 +39,7 @@ def _sigmoid(x: np.ndarray) -> np.ndarray:
     return 1.0 / (1.0 + np.exp(-x))
 
 
-def generate_dataset(n_rows: int = 3000, seed: int = 42) -> "pd.DataFrame":
+def generate_dataset(n_rows: int = 3000, seed: int = 12345) -> "pd.DataFrame":
     rng = np.random.default_rng(seed)
     n = int(n_rows)
 
@@ -92,21 +92,20 @@ def generate_dataset(n_rows: int = 3000, seed: int = 42) -> "pd.DataFrame":
     # Hubungan target dengan fitur (probabilistik, bukan deterministik).
     amount_tens_juta = invoice_amount / 1_000_000
     logit = (
-        -2.60
-        + 1.60 * previous_late_payment
-        + 0.035 * np.clip(customer_avg_payment_delay, 0, 60)
-        + 0.55 * (payment_method == "Installment")
-        + 0.30 * (customer_type == "Government")
-        + 0.20 * (payment_method == "Bank Transfer")
-        - 0.45 * (product_category == "Groceries")
-        - 0.30 * (customer_type == "Retail")
-        - 0.004 * discount
-        - 0.035 * np.clip(invoice_amount / 1_000_000, 0, None)
-        + 0.18 * np.log1p(customer_transaction_count)
-        + 0.25 * previous_late_payment * np.clip(invoice_amount / 1_000_000, 0, None)
-        - 0.04 * (payment_method == "Credit Card") * 10
+        -1.9
+        + 1.75 * previous_late_payment
+        + 0.04 * np.clip(customer_avg_payment_delay, 0, 60)
+        + 0.65 * (payment_method == "Installment")
+        + 0.4 * (customer_type == "Government")
+        + 0.25 * (payment_method == "Bank Transfer")
+        - 0.55 * (product_category == "Groceries")
+        - 0.35 * (customer_type == "Retail")
+        - 0.005 * discount
+        - 0.045 * np.clip(invoice_amount / 1_000_000, 0, None)
+        + 0.22 * np.log1p(customer_transaction_count)
+        + 0.15 * previous_late_payment * np.clip(invoice_amount / 1_000_000, 0, None)
     )
-    logit = logit + rng.normal(0, 0.9, size=len(logit))
+    logit = logit + rng.normal(0, 0.75, size=len(logit))
     prob = 1.0 / (1.0 + np.exp(-logit))
     prob = np.clip(prob, 0.01, 0.99)
     late_payment = (rng.random(n) < prob).astype(int)
@@ -134,7 +133,7 @@ def generate_dataset(n_rows: int = 3000, seed: int = 42) -> "pd.DataFrame":
 def main() -> None:
     parser = argparse.ArgumentParser(description="Generator dataset sintetis keterlambatan pembayaran.")
     parser.add_argument("--rows", type=int, default=3000, help="Jumlah baris (default 3000)")
-    parser.add_argument("--seed", type=int, default=42, help="Random seed (default 42)")
+    parser.add_argument("--seed", type=int, default=12345, help="Random seed (default 12345)")
     parser.add_argument(
         "--output",
         type=str,

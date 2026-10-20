@@ -28,7 +28,7 @@ from sklearn.tree import DecisionTreeClassifier
 
 from src.preprocessing import build_pipeline
 
-RANDOM_STATE = 42
+RANDOM_STATE = 12345
 
 
 def get_candidate_models() -> dict[str, Any]:

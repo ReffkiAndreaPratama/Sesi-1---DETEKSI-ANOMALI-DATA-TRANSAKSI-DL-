@@ -39,7 +39,7 @@ DATASET_PATH = BASE_DIR / "dataset" / "transactions.csv"
 MODELS_DIR = BASE_DIR / "models"
 RESULTS_DIR = BASE_DIR / "results"
 
-RANDOM_STATE = 42
+RANDOM_STATE = 12345
 
 
 def main() -> None:
